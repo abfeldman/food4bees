@@ -1,0 +1,54 @@
+<!ELEMENT dataset (
+    android_metadata*,
+    user*,
+    plant*,
+    plant_image*,
+    vegetation*)>
+
+<!ELEMENT android_metadata EMPTY>
+<!ATTLIST android_metadata
+    locale CDATA #IMPLIED
+>
+
+<!ELEMENT user EMPTY>
+<!ATTLIST user
+    id CDATA #REQUIRED
+    name CDATA #REQUIRED
+    email CDATA #REQUIRED
+    password CDATA #REQUIRED
+>
+
+<!ELEMENT plant EMPTY>
+<!ATTLIST plant
+    id CDATA #REQUIRED
+    user_id CDATA #IMPLIED
+    common_name CDATA #IMPLIED
+    latin_name CDATA #REQUIRED
+    description CDATA #IMPLIED
+    wikipedia_url CDATA #IMPLIED
+    color CDATA #IMPLIED
+    height CDATA #IMPLIED
+    nectar_index CDATA #IMPLIED
+    pollen_index CDATA #IMPLIED
+    start_flowering CDATA #IMPLIED
+    end_flowering CDATA #IMPLIED
+>
+
+<!ELEMENT plant_image EMPTY>
+<!ATTLIST plant_image
+    id CDATA #REQUIRED
+    plant_id CDATA #IMPLIED
+    caption CDATA #REQUIRED
+    image CDATA #REQUIRED
+>
+
+<!ELEMENT vegetation EMPTY>
+<!ATTLIST vegetation
+    id CDATA #REQUIRED
+    user_id CDATA #IMPLIED
+    plant_id CDATA #IMPLIED
+    area CDATA #IMPLIED
+    amount CDATA #IMPLIED
+    time CDATA #REQUIRED
+>
+

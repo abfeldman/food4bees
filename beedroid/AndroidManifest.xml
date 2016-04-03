@@ -1,0 +1,63 @@
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+          package="nl.food4bees.beedroid"
+          android:versionCode="1"
+          android:versionName="1.0">
+
+  <uses-sdk android:minSdkVersion="8" android:targetSdkVersion="17" />
+  <supports-screens android:largeScreens="true" />
+
+  <application android:label="@string/app_name"
+               android:icon="@drawable/ic_beedroid">
+    <activity android:name="nl.food4bees.beedroid.MainActivity"
+              android:label="@string/app_name"
+              android:theme="@style/Theme.Sherlock.Light.DarkActionBar">
+      <intent-filter>
+        <action android:name="android.intent.action.MAIN" />
+        <category android:name="android.intent.category.LAUNCHER" />
+      </intent-filter>
+    </activity>
+    <activity android:name="nl.food4bees.beedroid.LoginActivity"
+              android:label="@string/login_title"
+              android:windowSoftInputMode="stateHidden"
+              android:parentActivityName="nl.food4bees.beedroid.MainActivity"
+              android:theme="@style/Theme.Sherlock.Light.NoActionBar">
+      <meta-data android:name="android.support.PARENT_ACTIVITY"
+                 android:value="nl.food4bees.beedroid.MainActivity" />
+    </activity> 
+    <activity android:name="nl.food4bees.beedroid.PlantsNamesActivity"
+              android:icon="@drawable/ic_map"
+              android:label="@string/plants_names_title"
+              android:windowSoftInputMode="stateHidden"
+              android:parentActivityName="nl.food4bees.beedroid.MainActivity"
+              android:theme="@style/Theme.Sherlock.Light.DarkActionBar">
+      <meta-data android:name="android.support.PARENT_ACTIVITY"
+                 android:value="nl.food4bees.beedroid.MainActivity" />
+    </activity> 
+    <activity android:name="nl.food4bees.beedroid.PlantsActivity"
+              android:icon="@drawable/ic_plant"
+              android:label="@string/plants_title"
+              android:windowSoftInputMode="stateHidden"
+              android:parentActivityName="nl.food4bees.beedroid.PlantsNamesActivity"
+              android:theme="@style/Theme.Sherlock.Light.DarkActionBar">
+      <meta-data android:name="android.support.PARENT_ACTIVITY"
+                 android:value="nl.food4bees.beedroid.PlantsNamesActivity" />
+    </activity> 
+
+    <meta-data android:name="com.google.android.maps.v2.API_KEY"
+               android:value="AIzaSyCRTaZRvblh3jkKCEFaon2DfH3WI3spKEI" />
+  </application>
+
+  <permission android:name="nl.food4bees.beedroid.permission.MAPS_RECEIVE"
+              android:protectionLevel="signature" />
+
+  <uses-permission android:name="nl.food4bees.beedroid.permission.MAPS_RECEIVE" />
+  <uses-permission android:name="android.permission.INTERNET" />
+  <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+  <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+  <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+  <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+  <uses-permission android:name="com.google.android.providers.gsf.permission.READ_GSERVICES" />
+
+  <uses-feature android:name="android.hardware.touchscreen" android:required="false" />
+  <uses-feature android:glEsVersion="0x00020000" android:required="true" />
+</manifest>

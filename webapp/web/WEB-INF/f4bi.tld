@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<taglib
+    xmlns="http://java.sun.com/xml/ns/javaee"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-jsptaglibrary_2_1.xsd"
+    version="2.1">
+  <tlib-version>1.1</tlib-version>
+  <short-name>f4bi</short-name>
+  <tag>
+    <name>statistics</name>
+    <tag-class>nl.food4bees.backend.StatisticsTag</tag-class>
+    <body-content>empty</body-content>
+  </tag>
+  <tag>
+    <name>users</name>
+    <tag-class>nl.food4bees.backend.user.EntriesTag</tag-class>
+    <body-content>empty</body-content>
+  </tag>
+  <tag>
+    <name>groups</name>
+    <tag-class>nl.food4bees.backend.group.EntriesTag</tag-class>
+    <body-content>empty</body-content>
+  </tag>
+  <tag>
+    <name>emails</name>
+    <tag-class>nl.food4bees.backend.user.EmailsTag</tag-class>
+    <body-content>empty</body-content>
+  </tag>
+  <tag>
+    <name>plants</name>
+    <tag-class>nl.food4bees.backend.plant.EntriesTag</tag-class>
+    <body-content>empty</body-content>
+  </tag>
+  <tag>
+    <name>scientific-names</name>
+    <tag-class>nl.food4bees.backend.plant.ScientificNamesTag</tag-class>
+    <body-content>empty</body-content>
+  </tag>
+  <tag>
+    <name>vegetation</name>
+    <tag-class>nl.food4bees.backend.vegetation.ListTag</tag-class>
+    <body-content>empty</body-content>
+  </tag>
+  <tag>
+    <name>plant_images</name>
+    <tag-class>nl.food4bees.backend.plant_image.ImagesTag</tag-class>
+    <body-content>empty</body-content>
+  	<attribute>  
+       <name>plant</name>  
+       <required>true</required>
+       <rtexprvalue>true</rtexprvalue>
+    </attribute>
+  </tag>
+</taglib> 

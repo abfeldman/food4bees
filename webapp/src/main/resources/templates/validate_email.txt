@@ -1,0 +1,15 @@
+Dear ${recipientName},
+
+Thank you for registering at the Food4Bees website. Please, copy/paste
+the URL below into your browser in order to confirm your email and to
+return back to the Food4Bees website.
+
+${url}
+
+If you do not know what this is all about, then somebody else has
+requested a registration for the Food4Bees website for you. In this
+case, it is enough to delete this message.
+
+Sincerely yours,
+
+${senderName}

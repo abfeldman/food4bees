@@ -1,0 +1,6 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+  <item android:id="@+id/menu_submit"
+        android:title="@string/menu_submit"
+        android:icon="@drawable/ic_submit"
+        android:showAsAction="ifRoom" />
+</menu>

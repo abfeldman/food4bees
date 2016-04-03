@@ -1,0 +1,6 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+  <item android:id="@+id/menu_plant_names"
+        android:title="@string/menu_plant"
+        android:icon="@drawable/ic_plant"
+        android:showAsAction="ifRoom" />
+</menu>

@@ -1,0 +1,22 @@
+This README describes how to set up the development environment for the 
+food4bees index administrative web application "f4bi".
+
+High level steps to use the project:
+- Recommended to import the project in Eclipse IDE due to project settings:
+  - Select Unix under New text file line delimiter (Right-Click webapp Project->Properties->Resource)
+  - Set workspace indentation to 4 spaces (Window->Perferences->type "Format") and set all bold settings to indent with 4 spaces 
+  - Note the /.settings/ directory, if permanently changing project setting, commit this folder
+- Database:
+  - Download PostgreSQL and set up the PostgreSQL database
+  - Create the database using the script in ../db/create-db-food4bees.sql
+  - Create the test database using the script in ../db/create-db-food4bees2test.sql
+  - Check the /src/main/resources/db_main.properties, change these values, don't commit this file
+  - Check the /src/test/resources/db_test.properties, change these values, don't commit this file
+- Libraries:
+  - Check /lib/README and download the jars from: https://drive.google.com/folderview?id=0B3nBJAw0aIpCcXBiTnp6Y3pjc1E&usp=sharing
+  - Include the jars in the /lib/ directory
+- Build and deploy for testing and development:
+  - Build and create a .war file through the IDE. Build with Java 1.7 and Java Servlet 3.0.
+  - Deploy the .war file on a web server with a servlet container like Apache Tomcat.
+  - The application can be accessed through an URL similar like: http://localhost:8080/f4bi/ 
+

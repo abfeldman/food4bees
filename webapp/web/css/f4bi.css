@@ -1,0 +1,135 @@
+body {
+  font: 13px/20px 'Lucida Grande', Tahoma, Verdana, sans-serif;
+  color: #404040;
+  background: #0ca3d2;
+}
+
+div.edit_delete table { 
+  border-collapse: collapse; 
+}
+
+div.edit_delete tr:nth-of-type(odd) { 
+  background: #edf5f8;
+}
+
+div.edit_delete table tr:nth-of-type(even) { 
+  background: #ffffff;
+}
+
+div.edit_delete th { 
+  background: #333; 
+  color: white; 
+  font-weight: bold; 
+}
+
+div.edit_delete td, div.edit_delete th { 
+  padding: 6px; 
+  border: 1px solid #ccc; 
+  text-align: left; 
+}
+
+div.edit_delete td a {
+  display: block;
+  padding: 0px 20px 0px 20px;
+  height: 20px;
+  font-size: 12px;
+  font-weight: bold;
+  color: #527881;
+  text-shadow: 0 1px #e3f1f1;
+  background: #cde5ef;
+  border: 1px solid;
+  border-color: #b4ccce #b3c0c8 #9eb9c2;
+  border-radius: 10px;
+  outline: 0;
+  -webkit-box-sizing: content-box;
+  -moz-box-sizing: content-box;
+  box-sizing: content-box;
+  background-image: -webkit-linear-gradient(top, #edf5f8, #cde5ef);
+  background-image: -moz-linear-gradient(top, #edf5f8, #cde5ef);
+  background-image: -o-linear-gradient(top, #edf5f8, #cde5ef);
+  background-image: linear-gradient(to bottom, #edf5f8, #cde5ef);
+  -webkit-box-shadow: inset 0 1px white, 0 1px 2px rgba(0, 0, 0, 0.15);
+  box-shadow: inset 0 1px white, 0 1px 2px rgba(0, 0, 0, 0.15);
+  text-decoration: none;
+}
+
+div.login, div.message {
+  position:absolute;
+  top:0;
+  bottom:0;
+  left:0;
+  right:0;
+  margin:auto;
+  height:450px;
+}
+
+div.login input[type=text], div.login input[type=password], div.message input[type=text], div.message input[type=password] {
+  margin: 5px;
+  padding: 0 10px;
+  height: 34px;
+  color: #404040;
+  border: 1px solid;
+  border-color: #c4c4c4 #d1d1d1 #d4d4d4;
+}
+
+div.login input[type=text]:focus, div.login input[type=password]:focus, div.message input[type=text]:focus, div.message input[type=password]:focus {
+  border-color: #7dc9e2;
+  outline-color: #dceefc;
+  outline-offset: 0;
+}
+
+div.login input[type=submit], div.login input[type=reset], div.message input[type=submit], div.message input[type=reset] {
+  padding: 0 18px;
+  height: 29px;
+  font-size: 12px;
+  font-weight: bold;
+  color: #527881;
+  text-shadow: 0 1px #e3f1f1;
+  background: #cde5ef;
+  border: 1px solid;
+  border-color: #b4ccce #b3c0c8 #9eb9c2;
+  border-radius: 16px;
+  outline: 0;
+  -webkit-box-sizing: content-box;
+  -moz-box-sizing: content-box;
+  box-sizing: content-box;
+  background-image: -webkit-linear-gradient(top, #edf5f8, #cde5ef);
+  background-image: -moz-linear-gradient(top, #edf5f8, #cde5ef);
+  background-image: -o-linear-gradient(top, #edf5f8, #cde5ef);
+  background-image: linear-gradient(to bottom, #edf5f8, #cde5ef);
+  -webkit-box-shadow: inset 0 1px white, 0 1px 2px rgba(0, 0, 0, 0.15);
+  box-shadow: inset 0 1px white, 0 1px 2px rgba(0, 0, 0, 0.15);
+}
+
+div.login input[type=submit]:active, div.login input[type=reset]:active, div.message input[type=submit]:active, div.message input[type=reset]:active {
+  background: #cde5ef;
+  border-color: #9eb9c2 #b3c0c8 #b4ccce;
+  -webkit-box-shadow: inset 0 0 3px rgba(0, 0, 0, 0.2);
+  box-shadow: inset 0 0 3px rgba(0, 0, 0, 0.2);
+}
+
+div.login p, div.edit_delete p, div.message p {
+  text-align: center;
+}
+
+div.login h1, div.edit_delete h1, div.message h1 {
+  text-align: center;
+}
+
+div.login table, div.edit_delete table, div.message table {
+  margin: 0 auto;
+}
+
+div.login td.error {
+  padding: 10px 5px 10px 5px;
+}
+
+div.login td.buttons, div.message td.buttons {
+  padding: 10px 5px 10px 5px;
+  text-align: center;    
+}
+
+div.message td {
+  width: 500px;
+  text-align: center;
+}
