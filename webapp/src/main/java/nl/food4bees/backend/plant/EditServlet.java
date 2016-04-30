@@ -13,6 +13,7 @@ import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import nl.food4bees.backend.Util;
 
@@ -26,15 +27,25 @@ public class EditServlet extends PlantServlet
                          HttpServletResponse response)
         throws ServletException, IOException
     {
+        if (!checkCredentials(request)) {
+            logger.info("Insufficient edit plant credentials from " + request.getRemoteAddr());
+
+            request.setAttribute("error", "Insufficient credentials");
+
+            request.getRequestDispatcher("manage_plants.jsp").forward(request, response);
+
+            return;
+        }
+        
         String idParameter = request.getParameter("id");
         if (idParameter == null || !Util.isInteger(idParameter)) {
             logger.info("Malformed id parameter from " + request.getRemoteAddr());
 
-            request.getRequestDispatcher("plant.jsp").forward(request, response);
+            request.getRequestDispatcher("manage_plants.jsp").forward(request, response);
 
             return;
         }
-
+        
         Integer id = Integer.parseInt(idParameter);
 
         try {
@@ -42,7 +53,7 @@ public class EditServlet extends PlantServlet
             if (plant == null) {
                 logger.info("Requested data of a non-existent plant from " + request.getRemoteAddr());
 
-                request.getRequestDispatcher("plant.jsp").forward(request, response);
+                request.getRequestDispatcher("manage_plants.jsp").forward(request, response);
 
                 return;
             }
@@ -66,11 +77,21 @@ public class EditServlet extends PlantServlet
                           HttpServletResponse response)
         throws ServletException, IOException
     {
+        if (!checkCredentials(request)) {
+            logger.info("Insufficient edit plant credentials from " + request.getRemoteAddr());
+
+            request.setAttribute("error", "Insufficient credentials");
+
+            request.getRequestDispatcher("manage_plants.jsp").forward(request, response);
+
+            return;
+        }
+
         String idParameter = request.getParameter("id");
         if (idParameter == null || !Util.isInteger(idParameter)) {
             logger.info("Malformed id parameter from " + request.getRemoteAddr());
 
-            request.getRequestDispatcher("plant.jsp").forward(request, response);
+            request.getRequestDispatcher("manage_plants.jsp").forward(request, response);
 
             return;
         }
@@ -80,13 +101,34 @@ public class EditServlet extends PlantServlet
         String error = validate(request);
         if (error != null) {
             request.setAttribute("error", error);
-            preserveParameters(request);
+            preserveParameters(request); // We don't want the user to reenter what was already entered.
 
             request.getRequestDispatcher("plant.jsp").forward(request, response);
 
             return;
         }
 
+        HttpSession session = request.getSession(false);
+
+        Object attribute = session.getAttribute("uid");
+        if (attribute == null) {
+            request.setAttribute("error", "Internal error");
+            preserveParameters(request);
+
+            request.getRequestDispatcher("plant.jsp").forward(request, response);
+
+            return;
+        }
+        Integer uid = (Integer)attribute;
+        if (uid == null) {
+            request.setAttribute("error", "Internal error");
+            preserveParameters(request);
+
+            request.getRequestDispatcher("plant.jsp").forward(request, response);
+
+            return;
+        }
+        
         String commonName = request.getParameter("commonName");
         String scientificName = request.getParameter("scientificName");
         String description = request.getParameter("description");
@@ -102,12 +144,11 @@ public class EditServlet extends PlantServlet
             Database db = new Database();
 
             Integer version = db.getVersion(id);
-            System.err.println(version);
 
             assert(version != null);
 
             Entry plant = new Entry(id,
-                                    1, // @todo: Fix hardcoded value
+                                    uid,
                                     commonName,
                                     scientificName,
                                     description,
@@ -123,7 +164,6 @@ public class EditServlet extends PlantServlet
             db.edit(plant);
 
             // Success.
-
             request.getRequestDispatcher("manage_plants.jsp").forward(request, response);
         } catch (SQLException e) {
             request.setAttribute("error", "Internal error");

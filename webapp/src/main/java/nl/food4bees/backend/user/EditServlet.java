@@ -32,6 +32,16 @@ public class EditServlet extends UserServlet
                          HttpServletResponse response)
         throws ServletException, IOException
     {
+        if (!checkCredentials(request)) {
+            logger.info("Insufficient edit user credentials from " + request.getRemoteAddr());
+
+            request.setAttribute("error", "Insufficient credentials");
+
+            request.getRequestDispatcher("manage_users.jsp").forward(request, response);
+
+            return;
+        }
+        
         String idParameter = request.getParameter("id");
         if (idParameter == null || !Util.isInteger(idParameter)) {
             /*
@@ -43,7 +53,7 @@ public class EditServlet extends UserServlet
              */
             logger.info("Malformed id parameter from " + request.getRemoteAddr());
 
-            request.getRequestDispatcher("user.jsp").forward(request, response);
+            request.getRequestDispatcher("manage_users.jsp").forward(request, response);
 
             return;
         }
@@ -62,7 +72,7 @@ public class EditServlet extends UserServlet
                  */
                 logger.info("Requested data of a non-existent user from " + request.getRemoteAddr());
 
-                request.getRequestDispatcher("user.jsp").forward(request, response);
+                request.getRequestDispatcher("manage_users.jsp").forward(request, response);
 
                 return;
             }
@@ -91,18 +101,26 @@ public class EditServlet extends UserServlet
                           HttpServletResponse response)
         throws ServletException, IOException
     {
+        if (!checkCredentials(request)) {
+            logger.info("Insufficient edit user credentials from " + request.getRemoteAddr());
+
+            request.setAttribute("error", "Insufficient credentials");
+
+            request.getRequestDispatcher("manage_users.jsp").forward(request, response);
+
+            return;
+        }
+
         String idParameter = request.getParameter("id");
         if (idParameter == null || !Util.isInteger(idParameter)) {
             /*
              * This may happen iff the user submits a GET request
              * without an id or with an id parameter that is not an
-             * integer. Don't show an error message because,
-             * technically this is not an error and most probably a
-             * hacking attempt.
+             * integer.
              */
             logger.info("Malformed id parameter from " + request.getRemoteAddr());
 
-            request.getRequestDispatcher("user.jsp").forward(request, response);
+            request.getRequestDispatcher("manage_users.jsp").forward(request, response);
 
             return;
         }
@@ -110,7 +128,7 @@ public class EditServlet extends UserServlet
         if (groupParameter == null || !Util.isInteger(groupParameter)) {
             logger.info("Malformed group parameter from " + request.getRemoteAddr());
 
-            request.getRequestDispatcher("user.jsp").forward(request, response);
+            request.getRequestDispatcher("manage_users.jsp").forward(request, response);
 
             return;
         }

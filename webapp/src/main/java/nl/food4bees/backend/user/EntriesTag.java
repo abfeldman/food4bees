@@ -33,16 +33,18 @@ public class EntriesTag extends SimpleTagSupport
     public void doTag() throws JspException, IOException
     {
         try {
-            List<DisplayEntry> list = new Database().list();
-
             PageContext pageContext = (PageContext)getJspContext();
             HttpServletRequest request = (HttpServletRequest)pageContext.getRequest();
 
             if (!checkCredentials(request)) {
                 logger.info("Insufficient list users credentials from " + request.getRemoteAddr());
 
+                request.setAttribute("error", "Insufficient credentials");
+                
                 return;
             }
+
+            List<DisplayEntry> list = new Database().list();
 
             request.setAttribute("users", list);
         } catch (SQLException e) {

@@ -18,7 +18,7 @@ import javax.servlet.http.HttpServletResponse;
 import nl.food4bees.backend.Util;
 
 @WebServlet("/delete-plant")
-public class DeleteServlet extends HttpServlet
+public class DeleteServlet extends PlantServlet
 {
     private static String sourceClass = DeleteServlet.class.getName();
     private static Logger logger = Logger.getLogger(sourceClass);
@@ -33,6 +33,16 @@ public class DeleteServlet extends HttpServlet
                          HttpServletResponse response)
         throws ServletException, IOException
     {
+        if (!checkCredentials(request)) {
+            logger.info("Insufficient delete plant credentials from " + request.getRemoteAddr());
+
+            request.setAttribute("error", "Insufficient credentials");
+
+            request.getRequestDispatcher("manage_plants.jsp").forward(request, response);
+
+            return;
+        }
+
         String idParameter = request.getParameter("id");
         if (idParameter == null || !Util.isInteger(idParameter)) {
             /*

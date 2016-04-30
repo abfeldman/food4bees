@@ -1,8 +1,8 @@
 package nl.food4bees.backend.plant;
 
 import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import javax.servlet.http.HttpServletRequest;
 
 import java.util.regex.Pattern;
 
@@ -77,7 +77,7 @@ class PlantServlet extends HttpServlet
         if (groupName == null) {
             return false;
         }
-        if (!"Editor".equals(groupName)) {
+        if (!"Administrator".equals(groupName) && !"Editor".equals(groupName)) {
             return false;
         }
 

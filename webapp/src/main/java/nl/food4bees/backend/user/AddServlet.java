@@ -32,7 +32,8 @@ public class AddServlet extends UserServlet
         if (!checkCredentials(request)) {
             logger.info("Insufficient add user credentials from " + request.getRemoteAddr());
 
-            request.getRequestDispatcher("user.jsp").forward(request, response);
+            request.setAttribute("error", "Insufficient credentials");
+            request.getRequestDispatcher("index.jsp").forward(request, response);
 
             return;
         }
@@ -41,7 +42,8 @@ public class AddServlet extends UserServlet
         if (groupParameter == null || !Util.isInteger(groupParameter)) {
             logger.info("Malformed group parameter from " + request.getRemoteAddr());
 
-            request.getRequestDispatcher("user.jsp").forward(request, response);
+            request.setAttribute("error", "Internal error");
+            request.getRequestDispatcher("index.jsp").forward(request, response);
 
             return;
         }
@@ -68,7 +70,6 @@ public class AddServlet extends UserServlet
             new Database().add(user);
 
             // Success
-
             request.getRequestDispatcher("index.jsp").forward(request, response);
         } catch (SQLException e) {
             request.setAttribute("error", "Internal error");

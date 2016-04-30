@@ -7,6 +7,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.PageContext;
 import javax.servlet.jsp.tagext.SimpleTagSupport;
@@ -33,10 +34,19 @@ public class ImagesTag extends SimpleTagSupport
     public void doTag() throws JspException, IOException
     {
         try {
+            PageContext pageContext = (PageContext)getJspContext();
+            HttpServletRequest request = (HttpServletRequest)pageContext.getRequest();
+
+            if (!checkCredentials(request)) {
+                logger.info("Insufficient list plants credentials from " + request.getRemoteAddr());
+
+                request.setAttribute("error", "Insufficient credentials");
+                
+                return;
+            }
+
             List<Entry> list = new Database().getList(plantId);
 
-            PageContext pageContext = (PageContext) getJspContext();
-            HttpServletRequest request = (HttpServletRequest) pageContext.getRequest();
             request.setAttribute("plant_images", list);
         } catch (SQLException e) {
             logger.log(Level.SEVERE, "Received a database exception.", e);
@@ -44,4 +54,23 @@ public class ImagesTag extends SimpleTagSupport
             logger.log(Level.SEVERE, "Received an unexpected exception.", e);
         }
     }
+
+    private boolean checkCredentials(HttpServletRequest request)
+    {
+        HttpSession session = request.getSession(false);
+
+        Object attribute = session.getAttribute("group_name");
+        if (attribute == null) {
+            return false;
+        }
+        String groupName = (String)attribute;
+        if (groupName == null) {
+            return false;
+        }
+        if (!"Administrator".equals(groupName) && !"Editor".equals(groupName)) {
+            return false;
+        }
+
+        return true;
+    }    
 }

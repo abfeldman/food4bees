@@ -7,6 +7,7 @@ import java.io.InputStream;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpSession;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.Part;
 
@@ -65,5 +66,24 @@ public abstract class ImageServlet extends HttpServlet
         request.setAttribute("id", id);
         request.setAttribute("plantid", plantId);
         request.setAttribute("caption", caption);
+    }
+
+    protected boolean checkCredentials(HttpServletRequest request)
+    {
+        HttpSession session = request.getSession(false);
+
+        Object attribute = session.getAttribute("group_name");
+        if (attribute == null) {
+            return false;
+        }
+        String groupName = (String)attribute;
+        if (groupName == null) {
+            return false;
+        }
+        if (!"Administrator".equals(groupName) && !"Editor".equals(groupName)) {
+            return false;
+        }
+
+        return true;
     }
 }

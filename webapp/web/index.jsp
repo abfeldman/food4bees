@@ -20,6 +20,9 @@
     </c:if>
 
     <c:if test="${not empty sessionScope.uid}">
+      <c:if test="${error != null}">
+        <p>${error}<p>
+      </c:if>
       <ul>
         <li><a href='user.jsp'>Add a new user</a></li>
         <li><a href='manage_users.jsp'>Manage existing users</a></li>
@@ -48,8 +51,5 @@
       </c:if>
 
     </c:if>
-
-    <p>Download the <a href='../beedroid/beedroid-0.1.apk'>Beedroid v. 0.1</a> client application:<br />
-    <a href='../beedroid/beedroid-0.1.apk'><img alt="beedroid-0.1" src="images/beedroid-0.1.png" /></a></p>
   </body>
 </html>

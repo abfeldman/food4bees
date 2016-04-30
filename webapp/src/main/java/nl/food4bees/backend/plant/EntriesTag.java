@@ -24,17 +24,19 @@ public class EntriesTag extends SimpleTagSupport
     public void doTag() throws JspException, IOException
     {
         try {
-            List<Entry> list = new Database().list();
-
             PageContext pageContext = (PageContext)getJspContext();
             HttpServletRequest request = (HttpServletRequest)pageContext.getRequest();
 
             if (!checkCredentials(request)) {
                 logger.info("Insufficient list plants credentials from " + request.getRemoteAddr());
 
+                request.setAttribute("error", "Insufficient credentials");
+                
                 return;
             }
-            
+
+            List<Entry> list = new Database().list();
+
             request.setAttribute("plants", list);
         } catch (SQLException e) {
             logger.log(Level.SEVERE, "Received a database exception.", e);
@@ -55,7 +57,7 @@ public class EntriesTag extends SimpleTagSupport
         if (groupName == null) {
             return false;
         }
-        if (!"Editor".equals(groupName)) {
+        if (!"Administrator".equals(groupName) && !"Editor".equals(groupName)) {
             return false;
         }
 

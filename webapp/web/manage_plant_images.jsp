@@ -14,9 +14,16 @@
       <table>
         <c:set var="plantid" value="${not empty plantid ? plantid : param.plantid}" />
         <f4bi:plant_images plant="${plantid}"/>
-        <c:if test="${plant_images == null}">
-          <tr><td colspan="4">Internal error</td></tr>
-        </c:if>
+        <c:choose>
+          <c:when test="${error != null}">
+            <tr><td colspan="4">${error}</td></tr>
+          </c:when>
+          <c:otherwise>
+            <c:if test="${plant_images == null}">
+              <tr><td colspan="6">Internal error</td></tr>
+            </c:if>
+          </c:otherwise>
+        </c:choose>
         <c:if test="${plant_images != null && empty plant_images}">
           <tr><td colspan="4">No plants images</td></tr>
         </c:if>

@@ -21,8 +21,17 @@ public class AddServlet extends ImageServlet
     @Override
     protected void doPost(HttpServletRequest request,
                           HttpServletResponse response)
-                                                       throws ServletException, IOException
+        throws ServletException, IOException
     {
+        if (!checkCredentials(request)) {
+            logger.info("Insufficient add image credentials from " + request.getRemoteAddr());
+
+            request.setAttribute("error", "Insufficient credentials");
+            request.getRequestDispatcher("manage_plants.jsp").forward(request, response);
+
+            return;
+        }
+        
         try {
             processRequest(request);
         } catch (FileUploadException e) {
@@ -50,8 +59,7 @@ public class AddServlet extends ImageServlet
                                image);
 
             // Success
-
-            request.getRequestDispatcher("manage_plants.jsp").forward(request, response);
+            request.getRequestDispatcher("manage_plant_images.jsp?plantid=" + plantId).forward(request, response);
         } catch (SQLException e) {
             request.setAttribute("error", "Internal error");
             preserveParameters(request);

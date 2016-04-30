@@ -1,8 +1,8 @@
 package nl.food4bees.backend.user;
 
 import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import javax.servlet.http.HttpServletRequest;
 
 import java.util.regex.Pattern;
 

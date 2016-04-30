@@ -18,7 +18,7 @@ import javax.servlet.http.HttpServletResponse;
 import nl.food4bees.backend.Util;
 
 @WebServlet("/delete-plant-image")
-public class DeleteServlet extends HttpServlet
+public class DeleteServlet extends ImageServlet
 {
     private static String sourceClass = DeleteServlet.class.getName();
     private static Logger logger = Logger.getLogger(sourceClass);
@@ -40,7 +40,18 @@ public class DeleteServlet extends HttpServlet
              */
             logger.info("Malformed id parameter from " + request.getRemoteAddr());
 
-            request.getRequestDispatcher("manage_plant_images.jsp").forward(request, response);
+            request.setAttribute("error", "Internal error");
+
+            request.getRequestDispatcher("manage_plant_images.jsp?plantid=" + plantIdParameter).forward(request, response);
+
+            return;
+        }
+        if (!checkCredentials(request)) {
+            logger.info("Insufficient delete plant credentials from " + request.getRemoteAddr());
+
+            request.setAttribute("error", "Insufficient credentials");
+
+            request.getRequestDispatcher("manage_plant_images.jsp?plantid=" + plantIdParameter).forward(request, response);
 
             return;
         }

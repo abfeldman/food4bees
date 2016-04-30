@@ -33,18 +33,29 @@ public class EditServlet extends ImageServlet
 
             logger.info("Malformed id parameter from " + request.getRemoteAddr());
 
-            request.getRequestDispatcher("manage_plant_images.jsp").forward(request, response);
+            request.getRequestDispatcher("manage_plants.jsp").forward(request, response);
 
             return;
         }
 
+        if (!checkCredentials(request)) {
+            logger.info("Insufficient edit image credentials from " + request.getRemoteAddr());
+
+            request.setAttribute("error", "Insufficient credentials");
+            preserveParameters(request);
+
+            request.getRequestDispatcher("manage_plant_images.jsp?plant_id=" + plantIdParameter).forward(request, response);
+
+            return;
+        }
+        
         try {
             Entry plantImage = new Database().get(Integer.parseInt(idParameter));
             if (plantImage == null) {
                 logger.info("Requested data of a non-existent plant from " + request.getRemoteAddr());
 
                 request.setAttribute("plantid", plantIdParameter);
-                request.getRequestDispatcher("manage_plant_images.jsp").forward(request, response);
+                request.getRequestDispatcher("manage_plants.jsp").forward(request, response);
 
                 return;
             }
@@ -75,6 +86,17 @@ public class EditServlet extends ImageServlet
                           HttpServletResponse response)
         throws ServletException, IOException
     {
+        if (!checkCredentials(request)) {
+            logger.info("Insufficient edit image credentials from " + request.getRemoteAddr());
+
+            request.setAttribute("error", "Insufficient credentials");
+            preserveParameters(request);
+
+            request.getRequestDispatcher("manage_plants.jsp").forward(request, response);
+
+            return;
+        }
+        
         try {
             processRequest(request);
         } catch (FileUploadException e) {

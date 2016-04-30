@@ -77,8 +77,6 @@ public class SyncDatabaseServlet extends HttpServlet
                 it.remove(); // avoids a ConcurrentModificationException
             }
 
-            System.err.println("@@@: " + plants);
-
             ExportDatabase exportDatabase = new ExportDatabase();
 
             File tempDir = Files.createTempDirectory(null).toFile();
@@ -87,8 +85,6 @@ public class SyncDatabaseServlet extends HttpServlet
             exportDatabase.makeDatabase(dbFile, plants);
 
             int fileLength = (int)dbFile.length();
-
-            System.err.println(fileLength);
 
             response.setContentLength(fileLength);
             response.setHeader("Content-Disposition",

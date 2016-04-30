@@ -14,14 +14,21 @@
     <h1>Manage Plants</h1>
     <table>
       <f4bi:plants />
-      <c:if test="${plants == null}">
-        <tr><td colspan="4">Internal error</td></tr>
-      </c:if>
+      <c:choose>
+        <c:when test="${error != null}">
+          <tr><td colspan="6">${error}</td></tr>
+        </c:when>
+        <c:otherwise>
+          <c:if test="${plants == null}">
+            <tr><td colspan="6">Internal error</td></tr>
+          </c:if>
+        </c:otherwise>
+      </c:choose>
       <c:if test="${plants != null && empty plants}">
-        <tr><td colspan="4">No plants</td></tr>
+        <tr><td colspan="6">No plants</td></tr>
       </c:if>
       <c:if test="${not empty plants}">
-        <tr><th>Common name</th><th>Latin name</th><th></th><th></th><th></th><th></th></tr>
+        <tr><th>Common Name</th><th>Scientific Name</th><th></th><th></th><th></th><th></th></tr>
         <c:forEach var="plant" items="${plants}">
           <tr>
             <td>${plant.commonName != null ? plant.commonName : 'N/A'}</td>

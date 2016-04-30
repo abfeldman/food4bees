@@ -182,8 +182,6 @@ public class Database extends nl.food4bees.backend.Database
                                      email,
                                      password);
 
-        System.err.println(query);
-        
         ResultSet resultSet = statement.executeQuery(query);
         if (resultSet.next()) {
             return new LoginCredentials(resultSet.getInt("user_id"),

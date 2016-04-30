@@ -1,15 +1,17 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<!DOCTYPE html>
 <html>
-<head>
-<title>
-  <c:choose>
-    <c:when test="${empty id}">Create a New F4BI Plant image</c:when>
-    <c:otherwise>Modify an Existing F4BI Plant image</c:otherwise>
-  </c:choose>
-</title>
-</head>
+  <head>
+    <meta charset="utf-8">
+    <title>
+      <c:choose>
+        <c:when test="${empty id}">Create a New F4BI Plant image</c:when>
+        <c:otherwise>Modify an Existing F4BI Plant image</c:otherwise>
+      </c:choose>
+    </title>
+    <link rel="stylesheet" href="css/f4bi.css">
+  </head>
 <body>
   <h1>
     <c:choose>

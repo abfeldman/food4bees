@@ -14,9 +14,16 @@
       <h1>Manage Users</h1>
       <table>
         <f4bi:users />
-        <c:if test="${users == null}">
-          <tr><td colspan="5">Internal error</td></tr>
-        </c:if>
+        <c:choose>
+          <c:when test="${error != null}">
+            <tr><td colspan="5">${error}</td></tr>
+          </c:when>
+          <c:otherwise>
+            <c:if test="${users == null}">
+              <tr><td colspan="5">Internal error</td></tr>
+            </c:if>
+          </c:otherwise>
+        </c:choose>
         <c:if test="${users != null && empty users}">
           <tr><td colspan="5">No users</td></tr>
         </c:if>

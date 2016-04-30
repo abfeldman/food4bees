@@ -13,7 +13,6 @@ import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.Part;
 import javax.servlet.http.HttpSession;
 
 import org.apache.commons.io.IOUtils;
@@ -31,12 +30,10 @@ public class AddServlet extends PlantServlet
         throws ServletException, IOException
     {
         if (!checkCredentials(request)) {
-            logger.info("Insufficient list plants credentials from " + request.getRemoteAddr());
+            logger.info("Insufficient add plant credentials from " + request.getRemoteAddr());
 
-            request.setAttribute("error", "Internal error");
-            preserveParameters(request);
-
-            request.getRequestDispatcher("plant.jsp").forward(request, response);
+            request.setAttribute("error", "Insufficient credentials");
+            request.getRequestDispatcher("index.jsp").forward(request, response);
 
             return;
         }
