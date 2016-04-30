@@ -2,10 +2,11 @@
 <%@ page trimDirectiveWhitespaces="true"  %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="f4bi" uri="/WEB-INF/f4bi.tld" %>
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<!DOCTYPE html>
 <html>
   <head>
     <title>Add Vegetation</title>
+    <link rel="stylesheet" href="css/f4bi.css">
     <script>
       function addPolygonPoint()
       {
