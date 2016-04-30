@@ -2,6 +2,7 @@ package nl.food4bees.backend.plant;
 
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import java.util.regex.Pattern;
 
@@ -62,5 +63,24 @@ class PlantServlet extends HttpServlet
         request.setAttribute("start", request.getParameter("start"));
         request.setAttribute("end", request.getParameter("end"));
         request.setAttribute("caption", request.getParameter("caption"));
+    }
+
+    protected boolean checkCredentials(HttpServletRequest request)
+    {
+        HttpSession session = request.getSession(false);
+
+        Object attribute = session.getAttribute("group_name");
+        if (attribute == null) {
+            return false;
+        }
+        String groupName = (String)attribute;
+        if (groupName == null) {
+            return false;
+        }
+        if (!"Editor".equals(groupName)) {
+            return false;
+        }
+
+        return true;
     }
 }

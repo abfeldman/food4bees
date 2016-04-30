@@ -14,6 +14,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.Part;
+import javax.servlet.http.HttpSession;
 
 import org.apache.commons.io.IOUtils;
 
@@ -29,6 +30,17 @@ public class AddServlet extends PlantServlet
                           HttpServletResponse response)
         throws ServletException, IOException
     {
+        if (!checkCredentials(request)) {
+            logger.info("Insufficient list plants credentials from " + request.getRemoteAddr());
+
+            request.setAttribute("error", "Internal error");
+            preserveParameters(request);
+
+            request.getRequestDispatcher("plant.jsp").forward(request, response);
+
+            return;
+        }
+        
         String error = validate(request);
         if (error != null) {
             request.setAttribute("error", error);
@@ -39,6 +51,27 @@ public class AddServlet extends PlantServlet
             return;
         }
 
+        HttpSession session = request.getSession(false);
+
+        Object attribute = session.getAttribute("uid");
+        if (attribute == null) {
+            request.setAttribute("error", "Internal error");
+            preserveParameters(request);
+
+            request.getRequestDispatcher("plant.jsp").forward(request, response);
+
+            return;
+        }
+        Integer uid = (Integer)attribute;
+        if (uid == null) {
+            request.setAttribute("error", "Internal error");
+            preserveParameters(request);
+
+            request.getRequestDispatcher("plant.jsp").forward(request, response);
+
+            return;
+        }
+        
         String commonName = request.getParameter("commonName");
         String scientificName = request.getParameter("scientificName");
         String description = request.getParameter("description");
@@ -53,7 +86,7 @@ public class AddServlet extends PlantServlet
 
         try {
             Entry plant = new Entry(null,
-                                    1, // @todo: Fix hardcoded value
+                                    uid,
                                     commonName,
                                     scientificName,
                                     description,
