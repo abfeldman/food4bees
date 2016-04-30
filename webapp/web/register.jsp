@@ -13,21 +13,34 @@
       <h1>Register at Food4Bees</h1>
       <form action="register-user" method="post">
         <table>
-          <c:if test="${not empty error}"><tr><td class="error">${error}</td></tr></c:if>
+          <c:if test="${not empty error}">
           <tr>
-            <td><input id="name" type="text" name="name" value="${name}" placeholder="Name" /></td>
+            <td class="error">
+            ${error}
+            <c:if test="${not empty errors}">
+              <ul>
+              <c:forEach var="message" items="${errors}">
+                <li>${message}</li>
+              </c:forEach>
+              </ul>
+            </c:if>
+            </td>
+          </tr>
+          </c:if>
+          <tr>
+            <td align="center"><input id="name" type="text" name="name" value="${name}" placeholder="Name" /></td>
           </tr>
           <tr>
-            <td><input id="email" type="text" name="email" value="${email}" placeholder="Email" /></td>
+            <td align="center"><input id="email" type="text" name="email" value="${email}" placeholder="Email" /></td>
           </tr>
           <tr>
-            <td><input id="password" type="password" name="password" value="${password}" placeholder="Password" /></td>
+            <td align="center"><input id="password" type="password" name="password" value="${password}" placeholder="Password" /></td>
           </tr>
           <tr>
-            <td><input id="repeat" type="password" name="repeat" value="${repeat}" placeholder="Repeat password" /></td>
+            <td align="center"><input id="repeat" type="password" name="repeat" value="${repeat}" placeholder="Repeat password" /></td>
           </tr>
           <tr>
-            <td class="buttons"><input type="submit" name="submit" value="Submit" /> <input type="reset" name="reset" /></td>
+            <td align="center" class="buttons"><input type="submit" name="submit" value="Submit" /> <input type="reset" name="reset" /></td>
           </tr>
         </table>
       </form>

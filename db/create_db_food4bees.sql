@@ -1,5 +1,15 @@
--- CREATE USER food4bees PASSWORD 'changeme';
--- CREATE DATABASE food4bees OWNER=food4bees;
+-- psql -U postgres -f create_db_food4bees.sql
+
+-- Delete old database and user
+DROP DATABASE IF EXISTS food4bees;
+DROP USER IF EXISTS food4bees;
+
+-- Create database and user
+CREATE USER food4bees PASSWORD 'password';
+CREATE DATABASE food4bees OWNER=food4bees;
+
+-- Connect as database owner
+\connect food4bees food4bees
 
 CREATE TABLE "user"
 (

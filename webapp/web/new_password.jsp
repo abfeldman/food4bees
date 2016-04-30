@@ -14,15 +14,24 @@
       <form action="new-password" method="post">
         <c:if test="${not empty param.token}"><input type="hidden" value="${param.token}" name="token"></c:if>
         <table>
-          <c:if test="${not empty error}"><tr><td class="error">${error}</td></tr></c:if>
+          <td class="error">
+          ${error}
+          <c:if test="${not empty errors}">
+            <ul>
+            <c:forEach var="message" items="${errors}">
+              <li>${message}</li>
+            </c:forEach>
+            </ul>
+          </c:if>
+          </td>
           <tr>
-            <td><input id="password" type="password" name="password" value="${password}" placeholder="Password" /></td>
+            <td align="center"><input id="password" type="password" name="password" value="${password}" placeholder="Password" /></td>
           </tr>
           <tr>
-            <td><input id="repeat" type="password" name="repeat" value="${repeat}" placeholder="Repeat password" /></td>
+            <td align="center"><input id="repeat" type="password" name="repeat" value="${repeat}" placeholder="Repeat password" /></td>
           </tr>
           <tr>
-            <td class="buttons"><input type="submit" name="submit" /> <input type="reset" name="reset" /></td>
+            <td align="center" class="buttons"><input type="submit" name="submit" /> <input type="reset" name="reset" /></td>
           </tr>
         </table>
       </form>

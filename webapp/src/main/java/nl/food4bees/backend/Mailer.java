@@ -16,6 +16,8 @@ import java.io.IOException;
 import java.util.Properties;
 import java.util.Map;
 
+import nl.food4bees.backend.Config;
+
 public class Mailer
 {
     private static Mailer instance;
@@ -67,9 +69,16 @@ public class Mailer
         String to = recipientName + " <" + recipientMail + ">";
         String from = senderName + " <" + senderMail + ">";
 
-        Properties properties = System.getProperties();
+        Config config = Config.instance();
+        
+        Properties properties = new Properties();
+        properties.put("mail.transport.protocol", "smtps");
+        properties.put("mail.smtps.host", config.getProperty("smtps_host"));
+        properties.put("mail.smtps.port", config.getProperty("smtps_port"));
+        // properties.put("mail.smtps.auth", "true");
 
         Session session = Session.getDefaultInstance(properties);
+        session.setDebug(true);
 
         MimeMessage message = new MimeMessage(session);
 
@@ -90,6 +99,13 @@ public class Mailer
 
         message.setContent(multipart);
 
-        Transport.send(message);
+        // Transport.send(message);
+
+        Transport transport = session.getTransport("smtps");
+        transport.connect(config.getProperty("smtps_host"),
+                          config.getProperty("smtps_user"),
+                          config.getProperty("smtps_password"));
+        transport.sendMessage(message, message.getAllRecipients());
+        transport.close();
     }
 }
