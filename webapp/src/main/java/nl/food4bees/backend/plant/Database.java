@@ -204,4 +204,18 @@ public class Database extends nl.food4bees.backend.Database
 
         return resultSet.getInt("version");
     }
+
+    public ArrayList<Integer> getIdentifiers() throws SQLException
+    {
+        ArrayList<Integer> result = new ArrayList<Integer>();
+
+        Statement statement = connection_.createStatement();
+
+        ResultSet resultSet = statement.executeQuery("SELECT id FROM plant");
+        while (resultSet.next()) {
+            result.add(getInteger(resultSet, "id"));
+        }
+
+        return result;
+    }
 }

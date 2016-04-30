@@ -14,6 +14,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import java.util.zip.ZipEntry;
@@ -43,7 +44,11 @@ public class ExportDatabase
     public File makeArchive(File dbFile, File zipFile)
         throws ClassNotFoundException, IOException, SQLException
     {
-        createSQLiteDatabase(SQLITE_DB_JDBC + dbFile.getCanonicalPath(), null);
+        nl.food4bees.backend.plant.Database db = new nl.food4bees.backend.plant.Database();
+
+        ArrayList<Integer> plants = db.getIdentifiers();
+        
+        createSQLiteDatabase(SQLITE_DB_JDBC + dbFile.getCanonicalPath(), plants);
 
         writeToZip(dbFile, zipFile);
 
@@ -78,21 +83,17 @@ public class ExportDatabase
         statementCreate.executeUpdate(queryCreate);
         statementCreate.close();
         statementCreate = connectionSQLite.createStatement();
-        queryCreate = "CREATE TABLE plant (" +
-                      "_id INTEGER PRIMARY KEY NOT NULL, " +
-                      "common_name VARCHAR(256), " +
-                      "latin_name VARCHAR(256) NOT NULL, " +
-                      "description VARCHAR(4096), " +
-                      "version INTEGER NOT NULL" +
-                      ")"; 
+        queryCreate = "CREATE TABLE plant (_id INTEGER PRIMARY KEY NOT NULL, " +
+                      "                    common_name VARCHAR(256), " +
+                      "                    latin_name VARCHAR(256) NOT NULL, " +
+                      "                    description VARCHAR(4096), " +
+                      "                    version INTEGER NOT NULL)"; 
         statementCreate.executeUpdate(queryCreate);
         statementCreate.close();
         statementCreate = connectionSQLite.createStatement();
-        queryCreate = "CREATE TABLE plant_image (" +
-                      "_id INTEGER PRIMARY KEY NOT NULL, " +
-                      "plant_id INTEGER, " +
-                      "caption VARCHAR(256) NOT NULL" +
-                      ")";
+        queryCreate = "CREATE TABLE plant_image (_id INTEGER PRIMARY KEY NOT NULL, " +
+                      "                          plant_id INTEGER, " +
+                      "                          caption VARCHAR(256) NOT NULL)";
         statementCreate.executeUpdate(queryCreate);
         statementCreate.close();
         statementCreate = connectionSQLite.createStatement();
