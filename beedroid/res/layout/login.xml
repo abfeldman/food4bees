@@ -7,19 +7,13 @@
   <LinearLayout android:orientation="vertical"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
-    <!-- Nspyre logo --> 
-    <ImageView android:scaleType="centerInside"
-               android:src="@drawable/logo_nspyre"
-               android:layout_width="fill_parent"
-               android:layout_height="wrap_content"
-               android:gravity="center"
-               android:adjustViewBounds="true"
-               android:background="@color/black" />
     <!-- Food4bees logo --> 
     <ImageView android:scaleType="centerInside"
                android:src="@drawable/logo_f4b"
                android:layout_width="fill_parent"
                android:layout_height="wrap_content"
+               android:layout_marginTop="50dip"
+               android:layout_marginBottom="20dip"
                android:gravity="center" />
     <!-- Error message -->
     <TextView android:id="@+id/error"
