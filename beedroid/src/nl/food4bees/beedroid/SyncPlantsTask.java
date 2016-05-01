@@ -59,9 +59,9 @@ public class SyncPlantsTask extends AsyncTask<Void, Void, Boolean> {
 
         DefaultHttpClient client = new DefaultHttpClient();
             
-        // @todo: Don't use a hardcoded URL.
-        // HttpPost post = new HttpPost("http://food4bees.org/f4bi/add-vegetation");
-        HttpPost post = new HttpPost("http://192.168.96.8:98/f4bi/sync-plants");
+        String url = mActivity.getString(R.string.webapp_url);
+
+        HttpPost post = new HttpPost(url + "sync-plants");
 
         try {
             PlantsDatabase plantsDatabase = new PlantsDatabase(mActivity, "plant.db");

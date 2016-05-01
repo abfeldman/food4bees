@@ -20,7 +20,7 @@
 <!--
   <string name="webapp_url">http://food4bees.org/f4bi/</string>
 -->
-  <string name="webapp_url">http://192.168.96.8:98/f4bi/</string>
+  <string name="webapp_url">http://192.168.42.2:8080/f4bi/</string>
 
   <string name="submit_success">Successfully submitted a record.</string>
   <string name="submit_error">Cannot connect to the server when submitting a record. Please check your Internet connection and try again later.</string>

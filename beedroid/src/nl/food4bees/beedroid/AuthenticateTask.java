@@ -42,9 +42,10 @@ public class AuthenticateTask extends AsyncTask<LoginCredentials, Void, Boolean>
 
     protected Boolean doInBackground(LoginCredentials... credentials) {
         DefaultHttpClient client = new DefaultHttpClient();
-        /* @todo: Don't use a hardcoded URL. */
-        //        HttpPost post = new HttpPost("http://food4bees.org/f4bi/authenticate-user");
-        HttpPost post = new HttpPost("http://192.168.96.8:98/f4bi/authenticate-user");
+
+        String url = mLoginActivity.getString(R.string.webapp_url);
+
+        HttpPost post = new HttpPost(url + "authenticate-user");
 
         mCookieStore = new BasicCookieStore();
 
